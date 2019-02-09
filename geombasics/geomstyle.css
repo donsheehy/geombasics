@@ -1,0 +1,42 @@
+.pencil {
+  stroke: #d0d0d0;
+  stroke-width: 2;
+  fill: #d0d0d0;
+  fill-opacity: 0;
+}
+
+.pen {
+  stroke: black;
+  fill: black;
+  stroke-width: 3;
+  fill-opacity: 0;
+}
+
+.redpen {
+  stroke: red;
+  fill: red;
+  stroke-width: 4;
+  fill-opacity: 0;
+}
+
+.bluepen {
+  stroke: blue;
+  fill: blue;
+  stroke-width: 4;
+  fill-opacity: 0;
+}
+
+.marker {
+  stroke: black;
+  fill: black;
+  fill-opacity: 0;
+  stroke-width: 5;
+}
+
+.fill {
+  fill-opacity: 1;
+}
+
+.nostroke {
+  stroke-width: 0
+}
