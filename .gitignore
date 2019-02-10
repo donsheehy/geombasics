@@ -1,2 +1,5 @@
 geombasics_donsheehy.egg-info/
 geombasics/__pycache__
+geombasics/tests/__pycache__
+nosetests.json
+notes.md
