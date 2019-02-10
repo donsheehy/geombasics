@@ -65,23 +65,14 @@ class Point:
 				self.pos = self.vect() + 2 * (newp - self)
 		if isinstance(self.c1, Circle) and isinstance(self.c2, Line):
 			self.circle_intersect_line(self.c1, self.c2, -1)
-			# newp = Point(self.c2, self.c2, self.c1.c.x(), self.c1.c.y())
-			# other = self + 2 * (newp - self)
-			# if (self.c2.b - self.c2.a) * (self - other) > 0:
-			# 	self.pos = other.pos
 		if isinstance(self.c1, Line) and isinstance(self.c2, Circle):
 			self.circle_intersect_line(self.c2, self.c1, 1)
-			# newp = Point(self.c1, self.c1, self.c2.c.x(), self.c2.c.y())
-			# other = self + 2 * (newp - self)
-			# if (self.c1.a - self.c1.b) * (self - other) > 0:
-			# 	self.pos = other.pos
 
 	def circle_intersect_line(self, circle, line, orientation):
 		newp = Point(line, line, circle.c.x(), circle.c.y())
 		other = self + 2 * (newp - self)
 		if (line.a - line.b) * orientation * (self - other) > 0:
 			self.pos = other.pos
-
 
 	def x(self):
 		return self.pos.x
