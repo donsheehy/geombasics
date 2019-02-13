@@ -59,7 +59,7 @@ class Point:
         if isinstance(self.c1, Circle) and isinstance(self.c2, Circle):
             if (self - self.c1.c).orient(self.c2.c - self.c1.c):
                 newp = Point()
-                newp.setxy(self.x(), self.y())
+                newp.setxy(self.x, self.y)
                 L = Line(self.c1.c, self.c2.c)
                 L.project(newp)
                 self.pos = self.vect() + 2 * (newp - self)
@@ -69,19 +69,21 @@ class Point:
             self.circle_intersect_line(self.c2, self.c1, 1)
 
     def circle_intersect_line(self, circle, line, orientation):
-        newp = Point(line, line, circle.c.x(), circle.c.y())
+        newp = Point(line, line, circle.c.x, circle.c.y)
         other = self + 2 * (newp - self)
         if (line.a - line.b) * orientation * (self - other) > 0:
             self.pos = other.pos
 
+    @property
     def x(self):
         return self.pos.x
 
+    @property
     def y(self):
         return self.pos.y
 
     def tup(self):
-        return self.x(), self.y()
+        return self.x, self.y
 
     def vect(self):
         return self.pos
@@ -127,3 +129,16 @@ class Angle:
         self.a = a
         self.b = b
         self.c = c
+
+class Polygon:
+    def __init__(self, points):
+        self.points = points[:]
+
+    def __len__(self):
+        return len(self.points)
+
+    def __getitem__(self, index):
+        return self.points[index]
+
+    def __iter__(self):
+        return iter(self.points)

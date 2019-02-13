@@ -31,6 +31,22 @@ class SVGEngine():
         circle = self.svg_doc.circle(center, r = radius, **kwargs)
         self.svg_doc.add(circle)
 
+    def draw_arc(self, start, finish, radius = 50, **kwargs):
+        kwargs = self._add_defaults(**kwargs)
+        arc = self.svg_doc.path(**kwargs)
+        arc.push("M%f %f" % start)
+        arc.push("A%f %f 0 0 0 %f %f" % (radius, radius, *finish))
+        self.svg_doc.add(arc)
+
+    def draw_wedge(self, apex, start, finish, radius = 50, **kwargs):
+        kwargs = self._add_defaults(**kwargs)
+        wedge = self.svg_doc.path(**kwargs)
+        wedge.push("M%f %f" % apex)
+        wedge.push("L%f %f" % start)
+        wedge.push("A%f %f 0 0 0 %f %f" % (radius, radius, *finish))
+        wedge.push("L%f %f" % apex)
+        self.svg_doc.add(wedge)
+
     def draw_line(self, start, end, **kwargs):
         kwargs = self._add_defaults(**kwargs)
         line = self.svg_doc.line(start, end, **kwargs)
@@ -40,6 +56,15 @@ class SVGEngine():
         kwargs = self._add_defaults(**kwargs)
         rect = self.svg_doc.rect(insert=left_upper_corner, size=(width,height), **kwargs)
         self.svg_doc.add(rect)
+
+    def draw_polygon(self, points, **kwargs):
+        kwargs = self._add_defaults(**kwargs)
+        polygon = self.svg_doc.path(**kwargs)
+        polygon.push("M%f %f" % points[0])
+        for i, p in enumerate(points):
+            polygon.push("L%f %f" % p)
+        polygon.push("L%f %f" % points[0])
+        self.svg_doc.add(polygon)
 
     def draw_rect_center(self, center, width=50, height=50, **kwargs):
         left_upper_x = center[0] - width/2
@@ -76,6 +101,7 @@ class SVGEngine():
         text = self.svg_doc.text(text, center, text_anchor="middle", dominant_baseline="central", **kwargs)
         #note: some image viewers don't recognize the dominant_baseline attribute  dominant_baseline="central",
         self.svg_doc.add(text)
+
 
     def draw_arrow(self, start, end, **kwargs):
         """ See http://vanseodesign.com/web-design/svg-markers/ for more info on drawing arrowheads"""

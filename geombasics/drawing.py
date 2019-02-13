@@ -1,5 +1,5 @@
-from svghelper import *
-from geombasics.geometry import Point, Line, Circle, Angle
+from geombasics.svghelper import *
+from geombasics.geometry import Point, Line, Circle, Angle, Polygon
 from contextlib import contextmanager
 
 @contextmanager
@@ -22,6 +22,8 @@ class Canvas(SVGEngine):
             self.circle(obj)
         elif isinstance(obj, Angle):
             self.angle(obj)
+        elif isinstance(obj, Polygon):
+            self.polygon(obj)
 
     def drawin(self, style, objects):
         self.style = style
@@ -51,6 +53,9 @@ class Canvas(SVGEngine):
 
     def point(self, a):
         self.draw_circle(a.tup(), 2, **{'class':self.style + " fill"})
+
+    def polygon(self, points):
+        self.draw_polygon([p.tup() for p in points], **{'class':self.style})
 
     def circle(self, obj):
         a, b = obj.c, obj.r
